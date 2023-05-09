@@ -1,15 +1,10 @@
-﻿using MyBanker.Cards;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using MyBanker.Interfaces;
+
 
 namespace MyBanker;
 
-internal abstract class Card
+internal abstract class Card : IPay, IWithdraw, IDeposit
 {
     public string Name { get; private set; }
     public string CardNumber { get; private set; }
@@ -37,4 +32,17 @@ internal abstract class Card
         return $"{prefix}{cardNumber}";
     }
 
+    public virtual void Pay(int amount)
+    {
+        Console.WriteLine($"Paying with {this.GetType().Name} amount: {amount} ");
+    }
+    public virtual void Withdraw(int amount)
+    {
+        Console.WriteLine($"Withdrawing money from {this.GetType().Name} ");
+    }
+    public virtual void Deposit(int amount)
+    {
+        Console.WriteLine($"Depositing money to {this.GetType().Name}");
+    }
+     
 }

@@ -2,7 +2,7 @@
 
 namespace MyBanker.Cards;
 
-internal class Maestro : Card, IPay, IWithdraw, IDeposit
+internal class Maestro : DebitCard
 {
     private static string[] _prefixes = new string[9] { "5018", "5020", "5038", "5893", "6304", "6759", "6761", "6762", "6763" };
 
@@ -10,6 +10,11 @@ internal class Maestro : Card, IPay, IWithdraw, IDeposit
     {
     }
 
+    /// <summary>
+    /// Method overriding the virtual method cause card length has to 19
+    /// </summary>
+    /// <param name="prefixes"></param>
+    /// <returns></returns>
     public override string CreateCardNumber(string[] prefixes)
     {
 
@@ -24,19 +29,4 @@ internal class Maestro : Card, IPay, IWithdraw, IDeposit
 
     }
 
-    public void Deposit(int amount)
-    {
-        Console.WriteLine($"Depositing into account with {this.GetType().Name} amount: {amount} ");
-
-    }
-
-    public void Pay(int amount)
-    {
-        Console.WriteLine($"Paying with {this.GetType().Name} amount: {amount} ");
-    }
-
-    public void Withdraw(int amount)
-    {
-        Console.WriteLine($"Withdrawing money from {this.GetType().Name} amount: {amount}");
-    }
 }

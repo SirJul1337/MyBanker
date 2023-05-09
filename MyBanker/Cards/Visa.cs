@@ -2,25 +2,24 @@
 
 namespace MyBanker.Cards;
 
-internal class Visa : Card, IPay, IWithdraw, IDeposit, IMonthlySpending
+internal class Visa : Card, ICredit,IMonthlySpending
 {
     private static string[] _prefixes = new string[1] { "4" };
-    public static int MinAge = 18;
     public long limit { get; set; } = 20000;
+    public long Credit { get; set; } = 25000;
 
     public Visa(string name, string accountNumber) : base(name, accountNumber, 18, _prefixes)
     {
 
     }
-
-    public void Deposit(int amount)
+    /// <summary>
+    /// Method overriding pay method from IPay in Card superclass, to implement limit from IMonthlyPay
+    /// </summary>
+    /// <param name="amount"></param>
+    public override void Pay(int amount)
     {
-        throw new NotImplementedException();
-    }
-
-    public void Pay(int amount)
-    {
-        if(limit > amount)
+        //TODO: Implementation of Credit
+        if (limit > amount)
         {
             Console.WriteLine($"Withdrawing money from {this.GetType().Name} amount: {amount} ");
         }
@@ -30,9 +29,5 @@ internal class Visa : Card, IPay, IWithdraw, IDeposit, IMonthlySpending
         }
     }
 
-    public void Withdraw(int amount)
-    {
-        Console.WriteLine($"Withdrawing money from {this.GetType().Name} ");
-    }
 
 }

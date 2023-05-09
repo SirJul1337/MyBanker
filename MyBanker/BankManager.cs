@@ -33,15 +33,14 @@ namespace MyBanker
             }
             UseAllCards();
         }
-        public static List<Card> GetCards()
-        {
-            return Cards;
-        }
+        /// <summary>
+        /// Used for testing every card in the system
+        /// </summary>
         private void UseAllCards()
         {
             foreach (Card card in Cards)
             {
-                Console.WriteLine($"Card ({card.CardNumber}) on account {card.AccountNumber}"); 
+                Console.WriteLine($"Card ({card.CardNumber})\nAccount {card.AccountNumber}"); 
                 if(card is IPay pc) 
                 {
                     pc.Pay(10000);
