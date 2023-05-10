@@ -14,6 +14,12 @@ namespace MyBanker
         private string prefix = "3520";
         public string Name { get; private set; }
         private int _age;
+
+        /// <summary>
+        /// Constructor to create account with name and age, and AccounNumber is generated with method CreateAccountNumber
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="age"></param>
         public Account(string name, int age)
         {
             this.Name = name;
@@ -29,16 +35,20 @@ namespace MyBanker
                 }
             }
         }
+        /// <summary>
+        /// Method for creating AccountNumber with prefix and 10 extra digits
+        /// </summary>
+        /// <returns></returns>
         private string CreateAccountNumber()
         {
             Random r = new Random();
             string tempNumber = $"{prefix}{r.NextInt64(1000000000, 9999999999)}";
             return tempNumber;
         }
-        public List<Card> GetAllCards()
-        {
-            return BankManager.Cards.Where(c => c.AccountNumber == AccountNumber).ToList();
-        }
+        /// <summary>
+        /// Used for adding new Card yo account, if MinAge <= _age  then the card should be added to the system
+        /// </summary>
+        /// <param name="card"></param>
         public void AddNewCard(Card card)
         {
             if(card.MinAge <= _age)

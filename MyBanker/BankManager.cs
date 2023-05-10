@@ -19,18 +19,13 @@ namespace MyBanker
             Cards = new List<Card>();
             Accounts = new List<Account>();
             Account acc = new Account("Niklas", 18);
-            Account acc1 = new Account("Peter", 18);
+            Account acc1 = new Account("Peter", 15);
             Accounts.Add(acc);
             Accounts.Add(acc1);
-
-
-            foreach (Account accounts in Accounts)
-            {
-                accounts.GetAllCards();
-               
-                Card card = new Maestro(accounts.Name, accounts.AccountNumber);
-                accounts.AddNewCard(card);
-            }
+            Card card = new Maestro(acc.Name, acc.AccountNumber);
+            acc.AddNewCard(card);
+            Card visaE = new VisaElectron(acc1.Name, acc1.AccountNumber);
+            acc1.AddNewCard(visaE);
             UseAllCards();
         }
         /// <summary>
@@ -40,7 +35,8 @@ namespace MyBanker
         {
             foreach (Card card in Cards)
             {
-                Console.WriteLine($"Card ({card.CardNumber})\nAccount {card.AccountNumber}"); 
+                
+                Console.WriteLine($"Name:{card.Name} \nAccount: {card.AccountNumber}\nCard: ({card.CardNumber})"); 
                 if(card is IPay pc) 
                 {
                     pc.Pay(10000);
